@@ -13,7 +13,7 @@ const SERVICES_CONFIG = [
     {
         id: 'moodle_old',
         entityId: 'https://moodleold.iugaza.edu.ps/auth/saml2/sp/metadata.php',
-        name: 'clic',
+        name: '<span class="clic-name">CLiC</span>',
         description: 'another fucking system',
         icon: 'fas fa-graduation-cap',
         url: 'https://clic.mmu.edu.my/psp/csprd/?cmd=login',
