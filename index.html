@@ -85,7 +85,23 @@
     .content-panel {
       padding: 2rem;
     }
+.panel.header {
+  display: flex;
+  align-items: center;     /* محاذاة العناصر عمودياً في المنتصف */
+  justify-content: center; /* توسيط العناصر أفقياً في منتصف الصفحة */
+  gap: 15px;               /* المسافة بين الشعار والنص */
+  width: 100%;             /* للتأكد من أخذ كامل عرض الصفحة */
+}
 
+.site-logo {
+  height: 50px;            /* تحكم في حجم الشعار من هنا */
+  width: auto;
+}
+
+.header-text h1,
+.header-text p {
+  margin: 0;
+}
     /* Search Box */
     .search-box {
       position: relative;
