@@ -198,7 +198,22 @@
             transition: all 0.2;
             animation: iconPulse 1s ease-in-out infinite;
         }
+.service-icon-wrapper:has(img) {
+    background: transparent;
+    box-shadow: none;
+    animation: none;
+}
 
+.service-icon:has(img) {
+    background: transparent;
+    box-shadow: none;
+}
+
+.service-icon img {
+    width: 150px;
+    height: 80px;
+    object-fit: contain;
+}
         @keyframes iconPulse {
             0%, 100% {
                 box-shadow: 0 10px 30px rgba(26, 71, 42, 0.3);
