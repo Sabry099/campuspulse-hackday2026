@@ -175,13 +175,37 @@
       margin-bottom: 1.25rem;
     }
 
-  .service-logo {
+    .service-logo {
     width: 140px;
     height: 60px;
     object-fit: contain;
     margin-bottom: 1rem;
-  }
+    }
+    
+    .service-link{
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    }
 
+    .service-link:visited{
+    color: inherit;
+    }
+
+    .service-link:hover{
+    color: inherit;
+    text-decoration: none;
+    }
+
+    .service-link *{
+    color: inherit;
+    text-decoration: none;
+    }
+
+    .service-link .service-card{
+    cursor: pointer;
+    }
+    
     .service-desc {
       font-size: 0.8rem;
       color: var(--text-muted);
