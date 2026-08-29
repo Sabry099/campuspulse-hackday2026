@@ -34,6 +34,8 @@
 
     body {
       background-color: var(--bg-color);
+      background: url('https://online.mmu.edu.my/images/banner/bg_cyber_melaka_optimized.jpg') no-repeat center center fixed;
+      background-size: cover;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -44,7 +46,7 @@
 
     .container {
       width: 100%;
-      max-width: 980px;
+      max-width: 1400px;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
@@ -53,8 +55,8 @@
     /* Panel Card */
     .panel {
       background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.04);
     }
 
     /* Header Section */
@@ -93,17 +95,17 @@
     .search-box input {
       width: 100%;
       padding: 0.85rem 1rem 0.85rem 2.75rem;
-      border: 1px solid #cbd5e1;
+      border: 3px solid #cbd5e1;
       border-radius: 8px;
       outline: none;
-      font-size: 0.95rem;
+      font-size: 17px;
       color: var(--text-main);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: all 0.2s;
     }
 
     .search-box input:focus {
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(26, 77, 62, 0.1);
+      box-shadow: 0 0 0 5px rgba(26, 71, 42, 0.1);
     }
 
     .search-box i {
@@ -233,7 +235,7 @@
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .services-grid {
         grid-template-columns: 1fr;
       }
