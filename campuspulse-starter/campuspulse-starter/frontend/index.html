@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CampusPulse</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --accent: #d4ff2a;
+    --text: #f0f0f0;
+    --muted: #9aa4af;
+    --border: #2a2f37;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 {
+    font-size: 28px;
+    margin: 0;
+  }
+  h1 span { color: var(--accent); }
+  .subtitle { color: var(--muted); margin-top: 4px; font-size: 14px; }
+
+  select {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .digest-banner {
+    background: linear-gradient(90deg, rgba(212,255,42,0.1), transparent);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+  .digest-banner strong { color: var(--accent); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .card h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  .badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    margin-left: 8px;
+  }
+  .badge.course { background: #1f3a5f; color: #7cb3ff; }
+  .badge.club { background: #3a2f5f; color: #c19cff; }
+  .badge.scholarship { background: #1f5f3a; color: #7cffb0; }
+
+  .deadline {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .description {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .empty {
+    color: var(--muted);
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Campus<span>Pulse</span></h1>
+    <div class="subtitle">All your deadlines, one place.</div>
+  </div>
+  <select id="tagFilter">
+    <option value="">All categories</option>
+  </select>
+</header>
+
+<div class="digest-banner" id="digestBanner">Loading today's digest…</div>
+
+<div class="grid" id="eventGrid">
+  <div class="empty">Loading events…</div>
+</div>
+
+<script>
+  // Change this if your backend runs on a different host/port
+  const API_BASE = "http://localhost:8000";
+
+  const grid = document.getElementById("eventGrid");
+  const digestBanner = document.getElementById("digestBanner");
+  const tagFilter = document.getElementById("tagFilter");
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  }
+
+  function renderEvents(events) {
+    if (!events.length) {
+      grid.innerHTML = `<div class="empty">No events found for this filter.</div>`;
+      return;
+    }
+    grid.innerHTML = events.map(ev => `
+      <div class="card">
+        <div class="card-top">
+          <h3>${ev.title}</h3>
+          <span class="badge ${ev.type}">${ev.type}</span>
+        </div>
+        <div class="deadline">📅 ${formatDate(ev.deadline)}</div>
+        <div class="description">${ev.description || ""}</div>
+      </div>
+    `).join("");
+  }
+
+  async function loadEvents(tag = "") {
+    const url = tag ? `${API_BASE}/events?tag=${encodeURIComponent(tag)}` : `${API_BASE}/events`;
+    const res = await fetch(url);
+    const data = await res.json();
+    renderEvents(data);
+  }
+
+  async function loadDigest() {
+    const res = await fetch(`${API_BASE}/digest?days=3`);
+    const data = await res.json();
+    digestBanner.innerHTML = data.length
+      ? `<strong>${data.length} thing${data.length > 1 ? "s" : ""}</strong> due in the next 3 days — don't miss them.`
+      : `You're all caught up — nothing due in the next 3 days.`;
+  }
+
+  async function loadTags() {
+    const res = await fetch(`${API_BASE}/tags`);
+    const tags = await res.json();
+    tags.forEach(tag => {
+      const opt = document.createElement("option");
+      opt.value = tag;
+      opt.textContent = tag;
+      tagFilter.appendChild(opt);
+    });
+  }
+
+  tagFilter.addEventListener("change", () => loadEvents(tagFilter.value));
+
+  // Initial load
+  loadDigest();
+  loadEvents();
+  loadTags();
+</script>
+
+</body>
+</html>
