@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Sign-On Portal</title>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #1a4d3e;
+      --btn-bg: #e6edea;
+      --btn-text: #1a4d3e;
+      --btn-hover: #d7e4df;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg-color: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-main);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 980px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Panel Card */
+    .panel {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: var(--text-main);
+    }
+
+    .header p {
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    /* Main Content Section */
+    .content-panel {
+      padding: 2rem;
+    }
+
+    /* Search Box */
+    .search-box {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.75rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(26, 77, 62, 0.1);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #0284c7;
+      font-size: 1rem;
+    }
+
+    /* Grid Layout */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      border-right: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 2.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: #ffffff;
+      transition: background-color 0.2s;
+    }
+
+    .service-card:nth-child(4n) {
+      border-right: none;
+    }
+
+    .service-card:hover {
+      background-color: #f8fafc;
+    }
+
+    .icon-box {
+      width: 58px;
+      height: 58px;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--text-main);
+    }
+
+    .service-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      min-height: 2.4rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: var(--btn-bg);
+      color: var(--btn-text);
+      text-decoration: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+
+    .action-btn:hover {
+      background-color: var(--btn-hover);
+    }
+
+    .action-btn i {
+      font-size: 0.75rem;
+    }
+
+    /* Footer Section */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 860px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .service-card:nth-child(4n) {
+        border-right: 1px solid var(--card-border);
+      }
+      .service-card:nth-child(2n) {
+        border-right: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .service-card {
+        border-right: none !important;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Header -->
+    <header class="panel header">
+      <h1>Nexora Project 🎓</h1>
+      <p>for MMU Students</p>
+    </header>
+
+    <!-- Main Section -->
+    <main class="panel content-panel">
+      <!-- Search Input -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="serviceSearch" placeholder="Search for the service you need...">
+      </div>
+
+      <!-- Services Cards Grid -->
+      <div class="services-grid" id="servicesGrid">
+        
+        <!-- Service 1 -->
+        <div class="service-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h3 class="service-title">ebwise</h3>
+          <p class="service-desc">E-Learning Platform (Moodle)</p>
+          <a href="#" class="action-btn">
+            Launch Service <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h3 class="service-title">clic</h3>
+          <p class="service-desc">Previous E-Learning System Archive</p>
+          <a href="#" class="action-btn">
+            Launch Service <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <h3 class="service-title">outlook</h3>
+          <p class="service-desc">Secondary Email Portal for Staff</p>
+          <a href="#" class="action-btn">
+            Launch Service <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <h3 class="service-title">Attendance</h3>
+          <p class="service-desc">Official Student Webmail Access</p>
+          <a href="#" class="action-btn">
+            Launch Service <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="service-card">
+          <div class="icon-box">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h3 class="service-title">Finance</h3>
+          <p class="service-desc">Community Development Portal</p>
+          <a href="#" class="action-btn">
+            Launch Service <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="panel footer">
+      <p>© 2026 Nexora Project</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Technical Support</a>
+        <a href="#">About Portal</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Real-time Filter Script -->
+  <script>
+    const searchInput = document.getElementById('serviceSearch');
+    const cards = document.querySelectorAll('.service-card');
+
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(term) ? 'flex' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
