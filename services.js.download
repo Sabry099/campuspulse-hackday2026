@@ -16,7 +16,7 @@ const SERVICES_CONFIG = [
         name: 'clic',
         description: 'another fucking system',
         icon: 'fas fa-graduation-cap',
-        url: 'https://moodleold.iugaza.edu.ps/auth/saml2/login.php',
+        url: 'https://clic.mmu.edu.my/psp/csprd/?cmd=login',
         selected: false,
         is_public: true,
     },
