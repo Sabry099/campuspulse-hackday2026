@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Sign-On Portal</title>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #1a4d3e;
+      --btn-bg: #e6edea;
+      --btn-text: #1a4d3e;
+      --btn-hover: #d7e4df;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg-color: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      background: url('https://online.mmu.edu.my/images/banner/bg_cyber_melaka_optimized.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-main);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Panel Card */
+    .panel {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: var(--text-main);
+    }
+
+    .header p {
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    /* Main Content Section */
+    .content-panel {
+      padding: 2rem;
+    }
+.panel.header {
+  display: flex;
+  align-items: center;   
+  justify-content: center;
+  gap: 15px;              
+  width: 100%;           
+}
+
+.site-logo {
+  height: 50px;           
+  width: auto;
+}
+
+.header-text h1,
+.header-text p {
+  margin: 0;
+}
+    /* Search Box */
+    .search-box {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.75rem;
+      border: 3px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      font-size: 17px;
+      color: var(--text-main);
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 5px rgba(26, 71, 42, 0.1);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #0284c7;
+      font-size: 1rem;
+    }
+
+    /* Grid Layout */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      border-right: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 2.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: #ffffff;
+      transition: background-color 0.2s;
+    }
+
+    .service-card:nth-child(4n) {
+      border-right: none;
+    }
+
+    .service-card:hover {
+      background-color: #f8fafc;
+    }
+
+    .icon-box {
+      width: 58px;
+      height: 58px;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-logo {
+    width: 140px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    }
+    
+    .service-link{
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    }
+
+    .service-link:visited{
+    color: inherit;
+    }
+
+    .service-link:hover{
+    color: inherit;
+    text-decoration: none;
+    }
+
+    .service-link *{
+    color: inherit;
+    text-decoration: none;
+    }
+
+    .service-link .service-card{
+    cursor: pointer;
+    }
+    
+    .service-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      min-height: 2.4rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: var(--btn-bg);
+      color: var(--btn-text);
+      text-decoration: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+
+    .action-btn:hover {
+      background-color: var(--btn-hover);
+    }
+
+    .action-btn i {
+      font-size: 0.75rem;
+    }
+
+    /* Footer Section */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Tab Nav */
+    .tab-nav { display: flex; align-items: flex-end; gap: 0.35rem; margin-bottom: 2rem; border-bottom: 2px solid var(--card-border); }
+    .tab-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.25rem; border: 1.5px solid transparent;
+      border-bottom: none; border-radius: 8px 8px 0 0;
+      background: transparent; color: var(--text-muted);
+      font-size: 0.875rem; font-weight: 600; cursor: pointer;
+      transition: all 0.18s; position: relative; bottom: -2px;
+    }
+    .tab-btn:hover:not(.active) { color: var(--primary-color); background: #f1f5f9; border-color: var(--card-border); }
+    .tab-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+    .tab-btn i { font-size: 0.85rem; }
+    .tab-count { background: rgba(255,255,255,0.28); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 0.1rem 0.45rem; border-radius: 99px; }
+    .tab-btn:not(.active) .tab-count { background: var(--primary-color); color: #fff; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Page heading */
+    .page-heading { font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem; }
+    .page-heading i { color: var(--primary-color); }
+
+    /* Tags */
+    .tag { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 0.1rem 0.45rem; border-radius: 4px; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .tag.club    { background: #dbeafe; color: #1d4ed8; }
+    .tag.event   { background: #fef9c3; color: #92400e; }
+    .tag.notice  { background: #ede9fe; color: #6d28d9; }
+    .tag.urgent  { background: #fee2e2; color: #dc2626; }
+    .tag.general { background: #f1f5f9; color: #475569; }
+
+    /* Announcements */
+    .announce-full-list { display: flex; flex-direction: column; gap: 0.85rem; }
+    .announce-full-item { display: flex; gap: 1rem; padding: 1rem 1.2rem; background: #f8fafc; border: 1px solid var(--card-border); border-radius: 10px; align-items: flex-start; transition: background 0.15s; }
+    .announce-full-item:hover { background: #f1f5f9; }
+    .ann-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .ann-icon.blue   { background: #dbeafe; color: #1d4ed8; }
+    .ann-icon.green  { background: #dcfce7; color: #15803d; }
+    .ann-icon.amber  { background: #fef9c3; color: #92400e; }
+    .ann-icon.red    { background: #fee2e2; color: #dc2626; }
+    .ann-icon.purple { background: #ede9fe; color: #6d28d9; }
+    .ann-body { flex: 1; }
+    .ann-body strong { display: block; font-size: 0.9rem; color: var(--text-main); font-weight: 700; margin-bottom: 0.25rem; }
+    .ann-body p { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 0.4rem; line-height: 1.55; }
+    .ann-body .meta { font-size: 0.72rem; color: #94a3b8; }
+
+    /* Club Events */
+    .events-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; }
+    .event-card { background: #f8fafc; border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; }
+    .event-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+    .event-band { height: 6px; }
+    .band-blue   { background: #3b82f6; }
+    .band-green  { background: var(--primary-color); }
+    .band-amber  { background: #f59e0b; }
+    .band-purple { background: #8b5cf6; }
+    .band-red    { background: #ef4444; }
+    .event-body { padding: 1rem 1.1rem; }
+    .event-body h4 { font-size: 0.92rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem; }
+    .event-body p { font-size: 0.79rem; color: var(--text-muted); margin-bottom: 0.8rem; line-height: 1.5; }
+    .event-meta { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.76rem; color: var(--text-muted); margin-bottom: 0.85rem; }
+    .event-meta span { display: flex; align-items: center; gap: 0.45rem; }
+    .event-meta i { color: var(--primary-color); width: 13px; }
+    .register-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--btn-bg); color: var(--btn-text); padding: 0.42rem 0.9rem; border-radius: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .register-btn:hover { background: var(--btn-hover); }
+
+    /* Deadlines */
+    .deadlines-full-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .deadline-full-item { display: flex; align-items: center; gap: 1.2rem; padding: 1rem 1.2rem; background: #f8fafc; border: 1px solid var(--card-border); border-radius: 10px; transition: background 0.15s; }
+    .deadline-full-item:hover { background: #f1f5f9; }
+    .dl-cal { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 10px; flex-shrink: 0; color: #fff; font-weight: 700; }
+    .dl-cal .dl-day { font-size: 1.25rem; line-height: 1; }
+    .dl-cal .dl-mon { font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .dl-cal.red   { background: #ef4444; }
+    .dl-cal.amber { background: #f59e0b; }
+    .dl-cal.green { background: var(--primary-color); }
+    .dl-info { flex: 1; }
+    .dl-info strong { display: block; font-size: 0.9rem; color: var(--text-main); font-weight: 600; margin-bottom: 0.2rem; }
+    .dl-info span { font-size: 0.78rem; color: var(--text-muted); }
+    .urgency-pill { font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 99px; white-space: nowrap; }
+    .urgency-pill.red   { background: #fee2e2; color: #dc2626; }
+    .urgency-pill.amber { background: #fef9c3; color: #92400e; }
+    .urgency-pill.green { background: #dcfce7; color: #15803d; }
+
+    /* Responsive Adjustments */
+    @media (max-width: 860px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .service-card:nth-child(4n) {
+        border-right: 1px solid var(--card-border);
+      }
+      .service-card:nth-child(2n) {
+        border-right: none;
+      }
+      .events-grid { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .service-card {
+        border-right: none !important;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .events-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+       <!-- Top Header -->
+<header class="panel header">
+  <div class="header-text">
+    <h1> 
+         Nexora Project
+      </h1>
+      <p>for MMU Students</p>
+  </div>
+       <h1> <img src="https://mmuexpert.mmu.edu.my/images/logo/logo_mmu.png" alt="Nexora Logo" class="site-logo"></h1>
+</header>
+
+    <!-- Main Section -->
+    <main class="panel content-panel">
+
+      <!-- Tab Nav -->
+      <nav class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('services', this)">
+          <i class="fa-solid fa-grid-2"></i> Services
+        </button>
+        <button class="tab-btn" onclick="switchTab('announcements', this)">
+          <i class="fa-solid fa-bullhorn"></i> Announcements
+          <span class="tab-count">8</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('events', this)">
+          <i class="fa-solid fa-users"></i> Club Events
+        </button>
+        <button class="tab-btn" onclick="switchTab('deadlines', this)">
+          <i class="fa-solid fa-calendar-days"></i> Deadlines
+        </button>
+      </nav>
+
+      <!-- TAB: Services -->
+      <div id="tab-services" class="tab-panel active">
+      <!-- Search Input -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="serviceSearch" placeholder="Search for the service you need...">
+      </div>
+
+      <!-- Services Cards Grid -->
+      <div class="services-grid" id="servicesGrid">
+        
+        <!-- Service 1 -->
+       <a href="https://ebwise.mmu.edu.my"
+          class="service-link">
+
+      <div class="service-card">
+
+        <img class="service-logo"
+             src="https://ebwise.mmu.edu.my/pluginfile.php/1/theme_moove/logo/1787910855/eBwise.png"
+             alt="eBwise">
+
+        <h3 class="service-title">ebwise</h3>
+        <p class="service-desc">E-Learning Platform</p>
+
+        <div class="action-btn">
+            Launch Service
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
+    </div>
+
+</a>
+       <!-- Service 2 -->
+        <a href="https://clic.mmu.edu.my" class="service-link">
+
+  <div class="service-card">
+
+    <img
+      class="service-logo"
+      src="https://clic.mmu.edu.my/csprd/images/OPSE_logo.png"
+      alt="clic">
+
+    <h3 class="service-title">clic</h3>
+    <p class="service-desc">Academic Services</p>
+
+    <div class="action-btn">
+      Launch Service
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
+
+  </div>
+
+</a>
+
+     <!-- Service 3 -->
+        <a href="https://outlook.office.com/" class="service-link">
+
+  <div class="service-card">
+
+    <img
+      class="service-logo"
+      src="https://static.vecteezy.com/system/resources/previews/060/587/623/large_2x/rectangle-microsoft-outlook-new-icon-logo-symbol-free-png.png"
+      alt="Outlook">
+
+    <h3 class="service-title">Outlook</h3>
+    <p class="service-desc">Secondary Email Portal for Staff</p>
+
+    <div class="action-btn">
+      Launch Service
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
+
+  </div>
+
+</a>
+
+        <!-- Service 4 -->
+       <a href="https://clic.mmu.edu.my/psc/csprd/EMPLOYEE/SA/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL?CONTEXTIDPARAMS=TEMPLATE_ID%3aPTPPNAVCOL&scname=ADMN_ATTENDANCE&PTPPB_GROUPLET_ID=N_SSS_ATTDNCE&CRefName=ADMN_NAVCOLL_7" class="service-link">
+
+  <div class="service-card">
+
+    <img
+      class="service-logo"
+      src="https://clic.mmu.edu.my/cs/csprd/cache/LM_MARK_GRADES_ATT_1.svg"
+      alt="Attendance">
+
+    <h3 class="service-title">Attendance</h3>
+    <p class="service-desc">Official Student Webmail Access</p>
+
+    <div class="action-btn">
+      Launch Service
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
+
+  </div>
+
+</a>
+        <!-- Service 5 -->
+        <a href="https://clic.mmu.edu.my/psc/csprd/EMPLOYEE/SA/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL?CONTEXTIDPARAMS=TEMPLATE_ID%3aPTPPNAVCOL&scname=ADMN_CAMPUS_FINANCES&PTPPB_GROUPLET_ID=N_SSF_CAMP_FIN&CRefName=ADMN_NAVCOLL_4" class="service-link">
+
+  <div class="service-card">
+
+    <img
+      class="service-logo"
+      src="https://clic.mmu.edu.my/cs/csprd/cache/PS_BALANCE_L_FL_1.svg"
+      alt="Finance">
+
+    <h3 class="service-title">Finance</h3>
+    <p class="service-desc">Community Development Portal</p>
+
+    <div class="action-btn">
+      Launch Service
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
+
+  </div>
+
+</a>
+
+           <!-- Service 6 -->
+        <a href="https://clic.mmu.edu.my/psc/csprd/EMPLOYEE/SA/c/N_FA_FINANCIAL_AID_DATA.N_FA_APPL_DAS_CM.GBL" class="service-link">
+
+  <div class="service-card">
+
+    <img
+      class="service-logo"
+      src="https://clic.mmu.edu.my/cs/csprd/cache/SCHOLARSHIP_V1C_600.SVG"
+      alt="Scholarship">
+
+    <h3 class="service-title">Scholarship</h3>
+    <p class="service-desc">Financial Aid & Scholarships</p>
+
+    <div class="action-btn">
+      Launch Service
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
+
+  </div>
+
+</a>
+      </div><!-- end services-grid -->
+      </div><!-- end tab-services -->
+
+      <!-- TAB: Announcements -->
+      <div id="tab-announcements" class="tab-panel">
+        <div class="page-heading"><i class="fa-solid fa-bullhorn"></i> Campus Announcements</div>
+        <div class="announce-full-list">
+
+          <div class="announce-full-item">
+            <div class="ann-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="ann-body">
+              <span class="tag urgent">Urgent</span>
+              <strong>System Maintenance - eBwise Offline Tonight</strong>
+              <p>eBwise will be under scheduled maintenance from 11 PM to 3 AM tonight. Please submit all pending assignments before 10:30 PM.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Today, 10:00 AM - ICT Department</span>
+            </div>
+          </div>
+
+          <div class="announce-full-item">
+            <div class="ann-icon purple"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="ann-body">
+              <span class="tag notice">Notice</span>
+              <strong>Trimester 2 Results Released</strong>
+              <p>Trimester 2 2025/2026 academic results are now available on the student portal. Check your grades on CLIC.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Yesterday - Academic Registry</span>
+            </div>
+          </div>
+
+          <div class="announce-full-item">
+            <div class="ann-icon amber"><i class="fa-solid fa-building-columns"></i></div>
+            <div class="ann-body">
+              <span class="tag event">Event</span>
+              <strong>Hack Day 2026 - Problem Statements Released</strong>
+              <p>Official problem statements for Hack Day 2026 are live. Form your team of up to 4 and submit your interest by Sep 1.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Aug 28 - Student Affairs</span>
+            </div>
+          </div>
+
+          <div class="announce-full-item">
+            <div class="ann-icon blue"><i class="fa-solid fa-wifi"></i></div>
+            <div class="ann-body">
+              <span class="tag general">General</span>
+              <strong>Campus Wi-Fi Upgrade - New SSID Available</strong>
+              <p>Connect to <strong>MMU_STUDENT_5G</strong> for faster speeds. Old SSID will be retired by Sep 30.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Aug 27 - IT Infrastructure</span>
+            </div>
+          </div>
+
+          <div class="announce-full-item">
+            <div class="ann-icon green"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="ann-body">
+              <span class="tag event">Event</span>
+              <strong>Trimester 3 Registration Opens Sep 10</strong>
+              <p>Course registration for Trimester 3 opens September 10. Consult your academic advisor before registering.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Aug 26 - Academic Office</span>
+            </div>
+          </div>
+
+          <div class="announce-full-item">
+            <div class="ann-icon blue"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="ann-body">
+              <span class="tag notice">Notice</span>
+              <strong>Update Your Student Portal Password</strong>
+              <p>Accounts not updated by Sep 5 will be temporarily locked as part of annual security policy enforcement.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Aug 25 - IT Security</span>
+            </div>
+          </div>
+
+          <div class="announce-full-item">
+            <div class="ann-icon amber"><i class="fa-solid fa-book-open"></i></div>
+            <div class="ann-body">
+              <span class="tag general">General</span>
+              <strong>Library Extended Hours During Finals</strong>
+              <p>The MMU library will operate 24 hours during final exams (Sep 15 - Sep 28). Silent zones strictly enforced.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Aug 24 - Library Services</span>
+            </div>
+          </div>
+
+          <div class="announce-full-item">
+            <div class="ann-icon green"><i class="fa-solid fa-leaf"></i></div>
+            <div class="ann-body">
+              <span class="tag club">Club</span>
+              <strong>Green Campus Initiative - Tree Planting Drive</strong>
+              <p>Join the MMU Environmental Club this Saturday at the main field. Breakfast provided for all volunteers.</p>
+              <span class="meta"><i class="fa-regular fa-clock"></i> Aug 23 - Environmental Club</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB: Club Events -->
+      <div id="tab-events" class="tab-panel">
+        <div class="page-heading"><i class="fa-solid fa-users"></i> Upcoming Club Events</div>
+        <div class="events-grid">
+
+          <div class="event-card">
+            <div class="event-band band-blue"></div>
+            <div class="event-body">
+              <span class="tag club">Club</span>
+              <h4>MMU Robotics Open Day</h4>
+              <p>Explore student-built robots, join live demos, and discover the robotics community at DTC Lab.</p>
+              <div class="event-meta">
+                <span><i class="fa-solid fa-calendar"></i> Saturday, Aug 31</span>
+                <span><i class="fa-solid fa-clock"></i> 10:00 AM - 4:00 PM</span>
+                <span><i class="fa-solid fa-location-dot"></i> DTC Lab, Block A</span>
+              </div>
+              <a href="#" class="register-btn">Register <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-band band-purple"></div>
+            <div class="event-body">
+              <span class="tag event">Event</span>
+              <h4>Hack Day 2026 Kickoff</h4>
+              <p>Official kickoff of Hack Day 2026 - meet your team, get the brief, and start hacking!</p>
+              <div class="event-meta">
+                <span><i class="fa-solid fa-calendar"></i> Monday, Sep 2</span>
+                <span><i class="fa-solid fa-clock"></i> 9:00 AM - 9:00 PM</span>
+                <span><i class="fa-solid fa-location-dot"></i> MMU Auditorium</span>
+              </div>
+              <a href="#" class="register-btn">Register <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-band band-green"></div>
+            <div class="event-body">
+              <span class="tag club">Club</span>
+              <h4>MMU Tech Fest 2026</h4>
+              <p>Annual technology festival showcasing student projects, industry talks, and innovation competitions.</p>
+              <div class="event-meta">
+                <span><i class="fa-solid fa-calendar"></i> Sep 5 - Sep 7</span>
+                <span><i class="fa-solid fa-clock"></i> 9:00 AM - 6:00 PM</span>
+                <span><i class="fa-solid fa-location-dot"></i> Main Hall, Cyberjaya</span>
+              </div>
+              <a href="#" class="register-btn">Register <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-band band-amber"></div>
+            <div class="event-body">
+              <span class="tag club">Club</span>
+              <h4>Photography Club - Golden Hour Walk</h4>
+              <p>Sunset campus walk and photography session. All skill levels welcome.</p>
+              <div class="event-meta">
+                <span><i class="fa-solid fa-calendar"></i> Sep 6, Friday</span>
+                <span><i class="fa-solid fa-clock"></i> 5:30 PM - 7:30 PM</span>
+                <span><i class="fa-solid fa-location-dot"></i> MMU Main Gate</span>
+              </div>
+              <a href="#" class="register-btn">Register <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-band band-red"></div>
+            <div class="event-body">
+              <span class="tag event">Event</span>
+              <h4>Inter-Faculty Debate Championship</h4>
+              <p>Preliminary rounds of the inter-faculty debate championship. Watch top debaters compete.</p>
+              <div class="event-meta">
+                <span><i class="fa-solid fa-calendar"></i> Sep 9, Monday</span>
+                <span><i class="fa-solid fa-clock"></i> 2:00 PM - 6:00 PM</span>
+                <span><i class="fa-solid fa-location-dot"></i> Lecture Hall 3</span>
+              </div>
+              <a href="#" class="register-btn">Attend <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-band band-green"></div>
+            <div class="event-body">
+              <span class="tag club">Club</span>
+              <h4>Green Campus Tree Planting Drive</h4>
+              <p>Help plant 100 trees around campus with the Environmental Club. Breakfast and t-shirts provided.</p>
+              <div class="event-meta">
+                <span><i class="fa-solid fa-calendar"></i> Sep 7, Saturday</span>
+                <span><i class="fa-solid fa-clock"></i> 8:00 AM - 12:00 PM</span>
+                <span><i class="fa-solid fa-location-dot"></i> MMU Main Field</span>
+              </div>
+              <a href="#" class="register-btn">Join <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB: Deadlines -->
+      <div id="tab-deadlines" class="tab-panel">
+        <div class="page-heading"><i class="fa-solid fa-calendar-days"></i> Upcoming Deadlines</div>
+        <div class="deadlines-full-list">
+
+          <div class="deadline-full-item">
+            <div class="dl-cal red"><span class="dl-day">30</span><span class="dl-mon">Aug</span></div>
+            <div class="dl-info">
+              <strong>SE Lab Report Submission</strong>
+              <span>eBwise - Software Engineering - TMC2634</span>
+            </div>
+            <span class="urgency-pill red">Due Tomorrow</span>
+          </div>
+
+          <div class="deadline-full-item">
+            <div class="dl-cal amber"><span class="dl-day">02</span><span class="dl-mon">Sep</span></div>
+            <div class="dl-info">
+              <strong>Data Structures Mid-Term Exam</strong>
+              <span>Faculty of Computing - TMC2413</span>
+            </div>
+            <span class="urgency-pill amber">In 3 Days</span>
+          </div>
+
+          <div class="deadline-full-item">
+            <div class="dl-cal amber"><span class="dl-day">04</span><span class="dl-mon">Sep</span></div>
+            <div class="dl-info">
+              <strong>Hack Day 2026 - Team Registration</strong>
+              <span>Student Affairs - Online Submission</span>
+            </div>
+            <span class="urgency-pill amber">In 5 Days</span>
+          </div>
+
+          <div class="deadline-full-item">
+            <div class="dl-cal green"><span class="dl-day">05</span><span class="dl-mon">Sep</span></div>
+            <div class="dl-info">
+              <strong>Password Policy Compliance Deadline</strong>
+              <span>IT Security - Student Portal Update</span>
+            </div>
+            <span class="urgency-pill green">In 6 Days</span>
+          </div>
+
+          <div class="deadline-full-item">
+            <div class="dl-cal green"><span class="dl-day">08</span><span class="dl-mon">Sep</span></div>
+            <div class="dl-info">
+              <strong>Trimester 2 Fee Payment</strong>
+              <span>Finance Portal - Trimester 2 2025/2026</span>
+            </div>
+            <span class="urgency-pill green">In 9 Days</span>
+          </div>
+
+          <div class="deadline-full-item">
+            <div class="dl-cal green"><span class="dl-day">10</span><span class="dl-mon">Sep</span></div>
+            <div class="dl-info">
+              <strong>Trimester 3 Course Registration Opens</strong>
+              <span>Academic Registry - CLIC Portal</span>
+            </div>
+            <span class="urgency-pill green">In 11 Days</span>
+          </div>
+
+          <div class="deadline-full-item">
+            <div class="dl-cal green"><span class="dl-day">15</span><span class="dl-mon">Sep</span></div>
+            <div class="dl-info">
+              <strong>Network Security Assignment 2</strong>
+              <span>eBwise - TMC3234 - Prof. Ahmad Rashid</span>
+            </div>
+            <span class="urgency-pill green">In 16 Days</span>
+          </div>
+
+          <div class="deadline-full-item">
+            <div class="dl-cal green"><span class="dl-day">28</span><span class="dl-mon">Sep</span></div>
+            <div class="dl-info">
+              <strong>Final Examination Period Ends</strong>
+              <span>Academic Calendar - All Faculties</span>
+            </div>
+            <span class="urgency-pill green">In 29 Days</span>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+    <!-- Footer -->
+    <footer class="panel footer">
+      <p>© 2026 Nexora Project</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Technical Support</a>
+        <a href="#">About Portal</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Real-time Filter Script -->
+  <script>
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    const searchInput = document.getElementById('serviceSearch');
+    const cards = document.querySelectorAll('.service-card');
+
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(term) ? 'flex' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
